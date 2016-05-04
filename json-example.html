@@ -1,0 +1,31 @@
+
+<h2>JSON string</h2>
+{"errorcode":"0","errormessage":"","numberofresults":8,"stopid":"396","timestamp":"04\/05\/2016 15:32:41","results":[{"arrivaldatetime":"04\/05\/2016 15:35:39","duetime":"2","departuredatetime":"04\/05\/2016 15:35:39","departureduetime":"2","scheduledarrivaldatetime":"04\/05\/2016 15:36:00","scheduleddeparturedatetime":"04\/05\/2016 15:36:00","destination":"Shanard Road","destinationlocalized":" ","origin":"Park Avenue","originlocalized":"Park Avenue","direction":"Inbound","operator":"bac","additionalinformation":"","lowfloorstatus":"no","route":"1","sourcetimestamp":"04\/05\/2016 15:26:39","monitored":"true"},
+{"arrivaldatetime":"04\/05\/2016 15:41:51","duetime":"9","departuredatetime":"04\/05\/2016 15:41:51","departureduetime":"9","scheduledarrivaldatetime":"04\/05\/2016 15:42:00","scheduleddeparturedatetime":"04\/05\/2016 15:42:00","destination":"Citywest","destinationlocalized":"Iarthar na Cathrach ","origin":"Ringsend Road","originlocalized":"Ringsend Road","direction":"Outbound","operator":"bac","additionalinformation":"","lowfloorstatus":"no","route":"77A","sourcetimestamp":"04\/05\/2016 14:42:06","monitored":"true"},
+{"arrivaldatetime":"04\/05\/2016 15:55:31","duetime":"22","departuredatetime":"04\/05\/2016 15:55:31","departureduetime":"22","scheduledarrivaldatetime":"04\/05\/2016 15:56:00","scheduleddeparturedatetime":"04\/05\/2016 15:56:00","destination":"Shanard Road","destinationlocalized":" ","origin":"Park Avenue","originlocalized":"Park Avenue","direction":"Inbound","operator":"bac","additionalinformation":"","lowfloorstatus":"no","route":"1","sourcetimestamp":"04\/05\/2016 14:56:57","monitored":"true"},
+{"arrivaldatetime":"04\/05\/2016 16:01:27","duetime":"28","departuredatetime":"04\/05\/2016 16:01:27","departureduetime":"28","scheduledarrivaldatetime":"04\/05\/2016 16:01:00","scheduleddeparturedatetime":"04\/05\/2016 16:01:00","destination":"The Square","destinationlocalized":"An Chearnóg","origin":"Ringsend Road","originlocalized":"Ringsend Road","direction":"Outbound","operator":"bac","additionalinformation":"","lowfloorstatus":"no","route":"56A","sourcetimestamp":"04\/05\/2016 15:01:54","monitored":"true"},
+{"arrivaldatetime":"04\/05\/2016 16:01:51","duetime":"29","departuredatetime":"04\/05\/2016 16:01:51","departureduetime":"29","scheduledarrivaldatetime":"04\/05\/2016 16:02:00","scheduleddeparturedatetime":"04\/05\/2016 16:02:00","destination":"Citywest","destinationlocalized":"Iarthar na Cathrach ","origin":"Ringsend Road","originlocalized":"Ringsend Road","direction":"Outbound","operator":"bac","additionalinformation":"","lowfloorstatus":"no","route":"77A","sourcetimestamp":"04\/05\/2016 15:03:33","monitored":"true"},
+{"arrivaldatetime":"04\/05\/2016 16:07:52","duetime":"35","departuredatetime":"04\/05\/2016 16:07:52","departureduetime":"35","scheduledarrivaldatetime":"04\/05\/2016 16:06:00","scheduleddeparturedatetime":"04\/05\/2016 16:06:00","destination":"Fleet Street","destinationlocalized":"Sráid na Toinne ","origin":"Belarmine Est","originlocalized":"Belarmine Est","direction":"Inbound","operator":"bac","additionalinformation":"","lowfloorstatus":"no","route":"47","sourcetimestamp":"04\/05\/2016 15:20:03","monitored":"true"},
+{"arrivaldatetime":"04\/05\/2016 16:15:31","duetime":"42","departuredatetime":"04\/05\/2016 16:15:31","departureduetime":"42","scheduledarrivaldatetime":"04\/05\/2016 16:16:00","scheduleddeparturedatetime":"04\/05\/2016 16:16:00","destination":"Shanard Road","destinationlocalized":" ","origin":"Park Avenue","originlocalized":"Park Avenue","direction":"Inbound","operator":"bac","additionalinformation":"","lowfloorstatus":"no","route":"1","sourcetimestamp":"04\/05\/2016 15:16:45","monitored":"true"},
+{"arrivaldatetime":"04\/05\/2016 16:21:51","duetime":"49","departuredatetime":"04\/05\/2016 16:21:51","departureduetime":"49","scheduledarrivaldatetime":"04\/05\/2016 16:22:00","scheduleddeparturedatetime":"04\/05\/2016 16:22:00","destination":"Citywest","destinationlocalized":"Iarthar na Cathrach ","origin":"Ringsend Road","originlocalized":"Ringsend Road","direction":"Outbound","operator":"bac","additionalinformation":"","lowfloorstatus":"no","route":"77A","sourcetimestamp":"04\/05\/2016 15:23:21","monitored":"true"}]}
+
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Create Object from JSON String</h2>
+
+<p id="demo"></p>
+
+<script>
+var text = '{"results":[' +
+'{"arrivaldatetime":"04\/05\/2016 15:41:51","duetime":"9","departuredatetime":"04\/05\/2016 15:41:51","departureduetime":"9","scheduledarrivaldatetime":"04\/05\/2016 15:42:00","scheduleddeparturedatetime":"04\/05\/2016 15:42:00","destination":"Citywest","destinationlocalized":"Iarthar na Cathrach ","origin":"Ringsend Road","originlocalized":"Ringsend Road","direction":"Outbound","operator":"bac","additionalinformation":"","lowfloorstatus":"no","route":"77A","sourcetimestamp":"04\/05\/2016 14:42:06","monitored":"true"}]}';
+
+obj = JSON.parse(text);
+document.getElementById("demo").innerHTML =
+obj.results[0].route + " - Due in: " + obj.results[0].duetime + " mins";
+</script>
+
+</body>
+</html>

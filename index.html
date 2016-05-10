@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Bus Bot</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+
+<script src="jquery-2.2.3.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Economica:700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Palanquin:500' rel='stylesheet' type='text/css'>
+
+<style type="text/css">
+
+html, body {
+	font-family: 'Palanquin', sans-serif;
+	font-size: 100%;
+	color: #4d4d4f;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #edf4d7;
+}
+
+.container {
+	padding: 15px;
+}
+
+.focus-text {
+	font-family: 'Economica', sans-serif;
+	font-size: 3em;
+	margin: 30% auto;
+}
+
+.input {
+	width: 100%;
+	font-size: 1.25em;
+	height: 50px;
+}
+
+.finePrint {
+	font-size: 0.5em;
+	padding: 15px 0;
+}
+
+.wrapper {
+	padding: 15px;
+	height: 100%;
+    margin: 0 auto;
+	text-align: center;
+	overflow-y: scroll;
+	border: 1px solid #000;
+}
+
+.controls {
+	text-align: center;
+	padding: 5px;
+}
+
+.pull-right {
+	text-align: right;
+	float: right;
+}
+
+hr {
+	border: 1px #92d292 dotted;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+	width: 100%;
+}
+
+.btn-default {
+    color: #333;
+    background-color: transparent;
+    border-color: #ccc;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #a6b96b;
+    border-color: #a6b96b;
+}
+
+.btn-success:active {
+    background-color: #98a66e;
+}
+
+.btn-default:active {
+    background-color: #cdcdcd;
+}
+
+</style>
+
+<body>
+
+<div class="container">
+		<p id="poster"></p>
+   <section id="fetch">
+      <p><input class="input" type="text" placeholder="Bus stop no." id="term" /></p>
+      <button class="btn btn-success" id="search">GO!</button>
+   </section>
+   <section id="poster">
+   </section>
+
+</div>
+
+</body>
+
+<script>
+
+$(document).ready(function(){
+
+   $('#term').focus(function(){
+      var full = $("#poster").has("img").length ? true : false;
+      if(full == false){
+         $('#poster').empty();
+      }
+   });
+
+   var getPoster = function(){
+
+        var film = $('#term').val();
+
+         if(film == ''){
+
+            $('#poster').html("<h2 class='loading'>Please enter something in the field.</h2>");
+
+         } else {
+
+            $('#poster').html("<h2 class='loading'>Searching for Buses<br/>at stop "+ film +"</h2><hr />");
+
+            $.getJSON("https://data.dublinked.ie/cgi-bin/rtpi/realtimebusinformation?stopid="+film+"&format=json?callback?", function(json) {
+
+               if (json != "Nothing found."){
+                     //$('#poster').html('<h2 class="loading">Well, gee whiz! We found you a poster, skip!</h2><img id="thePoster" src=' + json[0].posters[0].image.url + ' />');
+						
+						var len = json.results.length;
+						
+						for (i=1; i<len; i++){
+							console.log(i);
+							$('#poster').append("<p>Bus No. " + json.results[i].route + " arrives in " + json.results[i].duetime + " mins</p><br />");
+						}
+                  } else {
+                        console.log(json);
+						$('#poster').html("<h2>Fail</h2>");
+                     };
+                  
+             });
+
+          }
+
+        return false;
+   }
+
+   $('#search').click(getPoster);
+   $('#term').keyup(function(event){
+       if(event.keyCode == 13){
+           getPoster();
+       }
+   });
+
+});
+
+</script>
+
+</html>
+ 
+
+
+
+
+
+
+

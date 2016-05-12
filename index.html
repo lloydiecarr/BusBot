@@ -9,6 +9,7 @@
 <link href='http://fonts.googleapis.com/css?family=Economica:700' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Palanquin:500' rel='stylesheet' type='text/css'>
 
+<!-- https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=53.2983930,-6.1791055&sensor=true&key=AIzaSyDCCV_eu-x_RV7NxtpEnYgMS158iA6JDHk&rankby=distance&types=bus_station -->
 <style type="text/css">
 
 html, body {
@@ -20,7 +21,7 @@ html, body {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
-	background-color: #edf4d7;
+	background-color: #fcff00;
 }
 
 .container {
@@ -37,6 +38,7 @@ html, body {
 	width: 100%;
 	font-size: 1.25em;
 	height: 50px;
+	text-align: center;
 }
 
 .finePrint {
@@ -49,7 +51,6 @@ html, body {
 	height: 100%;
     margin: 0 auto;
 	text-align: center;
-	overflow-y: scroll;
 	border: 1px solid #000;
 }
 
@@ -64,8 +65,10 @@ html, body {
 }
 
 hr {
-	border: 1px #92d292 dotted;
+	border: 1px #717171 solid;
 }
+
+
 
 .btn {
     display: inline-block;
@@ -84,7 +87,7 @@ hr {
     -ms-user-select: none;
     user-select: none;
     border: 1px solid transparent;
-    border-radius: 4px;
+    border-radius: 6px;
 	width: 100%;
 }
 
@@ -96,8 +99,8 @@ hr {
 
 .btn-success {
     color: #fff;
-    background-color: #a6b96b;
-    border-color: #a6b96b;
+    background-color: #63ca6d;
+    border-color: #63ca6d;
 }
 
 .btn-success:active {
@@ -113,14 +116,12 @@ hr {
 <body>
 
 <div class="container">
-		<p id="poster"></p>
    <section id="fetch">
-      <p><input class="input" type="text" placeholder="Bus stop no." id="term" /></p>
-      <button class="btn btn-success" id="search">GO!</button>
+      <p><input class="input" type="tel" placeholder="" id="term" /></p>
+      <button class="btn btn-success" id="search">FIND</button>
    </section>
-   <section id="poster">
-   </section>
-
+		<div id="heading"></div>
+		<div class="results" id="poster" style="overflow-y: scroll;"></div>
 </div>
 
 </body>
@@ -146,12 +147,13 @@ $(document).ready(function(){
 
          } else {
 
-            $('#poster').html("<h2 class='loading'>Searching for Buses<br/>at stop "+ film +"</h2><hr />");
+            $('#heading').html("<h2 class='loading'>Searching for Buses<br/>at stop "+ film +"</h2><hr />");
 
             $.getJSON("https://data.dublinked.ie/cgi-bin/rtpi/realtimebusinformation?stopid="+film+"&format=json?callback?", function(json) {
 
                if (json != "Nothing found."){
-                     //$('#poster').html('<h2 class="loading">Well, gee whiz! We found you a poster, skip!</h2><img id="thePoster" src=' + json[0].posters[0].image.url + ' />');
+					 
+						$('#heading').html("<h2 class='loading'>Buses due at stop "+ film +"</h2><hr />");
 						
 						var len = json.results.length;
 						

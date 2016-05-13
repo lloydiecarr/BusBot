@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Bus Bot</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+
+<script src="jquery-2.2.3.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Economica:700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Palanquin:500' rel='stylesheet' type='text/css'>
+
+<!-- https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=53.2983930,-6.1791055&sensor=true&key=AIzaSyDCCV_eu-x_RV7NxtpEnYgMS158iA6JDHk&rankby=distance&types=bus_station -->
+<style type="text/css">
+
+html, body {
+	font-family: 'Palanquin', sans-serif;
+	font-size: 100%;
+	color: #4d4d4f;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #fcff00;
+}
+
+.container {
+	padding: 15px;
+	height: 100%;
+}
+
+.focus-text {
+	font-family: 'Economica', sans-serif;
+	font-size: 3em;
+	margin: 30% auto;
+}
+
+.input {
+	width: 100%;
+	font-size: 1.25em;
+	height: 50px;
+	text-align: center;
+}
+
+.finePrint {
+	font-size: 0.5em;
+	padding: 15px 0;
+}
+
+.wrapper {
+	padding: 15px;
+	height: 100%;
+    margin: 0 auto;
+	text-align: center;
+	border: 1px solid #000;
+}
+
+.results {
+	height: 100%;
+	overflow-y: scroll;
+}
+
+.controls {
+	text-align: center;
+	padding: 5px;
+}
+
+.pull-right {
+	text-align: right;
+	float: right;
+}
+
+hr {
+	border: 1px #717171 solid;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    border-radius: 6px;
+	width: 100%;
+}
+
+.btn-default {
+    color: #333;
+    background-color: transparent;
+    border-color: #ccc;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #63ca6d;
+    border-color: #63ca6d;
+}
+
+.btn-success:active {
+    background-color: #98a66e;
+}
+
+.btn-default:active {
+    background-color: #cdcdcd;
+}
+
+</style>
+
+<body>
+
+<div class="container">
+   <section id="fetch">
+      <p><input class="input" type="tel" placeholder="Enter Stop Number" id="term" onfocus="this.value='';"/></p>
+      <button class="btn btn-success" id="search">FIND BUSES</button>
+   </section>
+		<div id="heading"></div>
+		<div class="results" id="poster">
+			<section>
+				<section class="route" style="float:left">
+					<p class="padding-left:40px; text-align: left; font-size: 1.5em;"><strong>77A</strong></p>
+					<p class="destination" style="text-align: left; font-size: 0.70em">Going to Limekiln Ave.</p>
+				</section>
+				<section class="due" style="clear: both; height: 3em; width: 3em; text-align: center; font-size: 1.5em; border-radius: 50%; background: #000; color: #fff">
+					<section class="duetext" style="font-size: 1em; color: #fff; line-height: 0.8em">27<br /><span style="font-size: 0.7em; color: #fff">min</span></section>
+				<section>
+			</section>
+		</div>
+</div>
+
+</body>
+
+<script>
+
+$(document).ready(function(){
+
+   $('#term').focus(function(){
+      var full = $("#poster").has("img").length ? true : false;
+      if(full == false){
+         $('#poster').empty();
+      }
+   });
+
+   var getPoster = function(){
+
+        var film = $('#term').val();
+
+         if(film == ''){
+
+            $('#poster').html("<h2 class='loading'>Please enter something in the field.</h2>");
+
+         } else {
+
+            $('#heading').html("<h2 class='loading'>Searching for Buses<br/>at stop "+ film +"</h2><hr />");
+
+            $.getJSON("https://data.dublinked.ie/cgi-bin/rtpi/realtimebusinformation?stopid="+film+"&format=json?callback?", function(json) {
+
+               if (json != "Nothing found."){
+					 
+						$('#heading').html("<h2 class='loading'>Buses due at stop "+ film +"</h2><hr />");
+						
+						var len = json.results.length;
+						
+						for (i=1; i<len; i++){
+							console.log(i);
+							$('#poster').append("<p>Bus No. " + json.results[i].route + " arrives in " + json.results[i].duetime + " mins</p><br />");
+						}
+                  } else {
+                        console.log(json);
+						$('#poster').html("<h2>Fail</h2>");
+                     };
+                  
+             });
+
+          }
+
+        return false;
+   }
+
+   $('#search').click(getPoster);
+   $('#term').keyup(function(event){
+       if(event.keyCode == 13){
+           getPoster();
+       }
+   });
+
+});
+
+</script>
+
+</html>
+ 
+
+
+
+
+
+
+

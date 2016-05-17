@@ -25,8 +25,13 @@ html, body {
 }
 
 .container {
+	position: absolute;
+	top:0;
+	left: 0;
+	right:0;
+	bottom:0;
 	padding: 15px;
-	height: 100%;
+	overflow-y:scroll;
 }
 
 .focus-text {
@@ -55,9 +60,61 @@ html, body {
 	border: 1px solid #000;
 }
 
+.row {
+  padding: 20px 0;
+  padding-left: 40px;
+  margin: 0;
+  height: 44px;
+  background: url("bus.png") no-repeat center left;
+  line-height: 1em;
+  font-family: arial, sans-serif;
+  border-bottom: 1px solid #000;
+}
+
+.row span {
+	font-size: 0.6em;
+}
+
 .results {
-	height: 100%;
-	overflow-y: scroll;
+	
+    
+}
+
+.result {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  padding: 0;
+  width: 75%;
+  float: left;
+  font-size:1.25em
+}
+
+.result p {
+  margin: 0;
+}
+
+.due {
+  padding: 0;
+  float: right;
+  height: 44px;
+  width: 44px;
+  margin: 0;
+  text-align: center;
+  line-height: 0.8em;
+  color: #fff;
+  background: #000;
+  border-radius: 50%;
+}
+
+.due p {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+<!--   margin-top: 10px; -->
+
 }
 
 .controls {
@@ -102,9 +159,9 @@ hr {
 }
 
 .btn-success {
-    color: #fff;
-    background-color: #63ca6d;
-    border-color: #63ca6d;
+    color: #fcff00;
+    background-color: #000;
+    border-color: #000;
 }
 
 .btn-success:active {
@@ -119,13 +176,14 @@ hr {
 
 <body>
 
-<div class="container">
+<div class="container" >
    <section id="fetch">
       <p><input class="input" type="tel" placeholder="Enter Stop Number" id="term" onfocus="this.value='';"/></p>
       <button class="btn btn-success" id="search">FIND BUSES</button>
-   </section>
-		<div id="heading"></div>
-		<div class="results" id="poster"></div>
+	  <div id="heading"></div>
+	</section>
+		<div class="results" id="poster">
+		</div>
 </div>
 
 </body>
@@ -161,17 +219,25 @@ $(document).ready(function(){
 						
 						var len = json.results.length;
 						
-						for (i=1; i<len; i++){
-							console.log(i);
-							$('#poster').append("<p>Bus No. " + json.results[i].route + " arrives in " + json.results[i].duetime + " mins</p><br />");
+						for (i=0; i<len; i++){
+							
+								if (json.results[i].duetime != 'Due'){
+								
+									$('#poster').append("<div class='row'><div class='result'><p><strong>No. " + json.results[i].route + "</strong><br /><span>To " + json.results[i].destination + "</span></p></div>" + "<div class='due'><p>" + json.results[i].duetime + "<br /><span id='minutes'>min</span></p></div></div>");
+									
+										} else {
+									
+									$('#poster').append("<div class='row'><div class='result'><p><strong>No. " + json.results[i].route + "</strong><br /><span>To " + json.results[i].destination + "</span></p></div>" + "<div class='due'><p>" + json.results[i].duetime + "</p></div></div>");
+								
+								}
 						}
                   } else {
-                        console.log(json);
+				  console.log(i);
 						$('#poster').html("<h2>Fail</h2>");
                      };
                   
              });
-
+			 
           }
 
         return false;
@@ -190,9 +256,6 @@ $(document).ready(function(){
 
 </html>
  
-
-
-
 
 
 

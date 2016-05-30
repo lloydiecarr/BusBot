@@ -31,7 +31,35 @@ html, body {
 	right:0;
 	bottom:0;
 	padding: 15px;
+	overflow: hidden;
 	overflow-y:scroll;
+}
+
+.fetch {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+	bottom: 0px;
+	right: 0px;
+    z-index: 5;
+	margin: 0;
+	padding: 15px;
+	background: #fcff00 url('bb-logo.png') no-repeat top center;
+	background-size: 40%;
+}
+
+.heading {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+	bottom: 0px;
+	right: 0px;
+    z-index: 3;
+	margin: 0;
+	padding: 15px;
+	height: 20%;
+	background-color: #000;
+	color: #fcff00;
 }
 
 .focus-text {
@@ -41,10 +69,14 @@ html, body {
 }
 
 .input {
+	margin-top: 50%;
 	width: 100%;
 	font-size: 1.25em;
 	height: 50px;
 	text-align: center;
+	background: transparent;
+	border: 0;
+	border-bottom: 1px solid #4d4d4f;
 }
 
 .finePrint {
@@ -75,11 +107,6 @@ html, body {
 	font-size: 0.6em;
 }
 
-.results {
-	
-    
-}
-
 .result {
   position: relative;
   top: 50%;
@@ -93,6 +120,10 @@ html, body {
 
 .result p {
   margin: 0;
+}
+
+.results {
+	
 }
 
 .due {
@@ -113,8 +144,6 @@ html, body {
   top: 50%;
   transform: translateY(-50%);
   margin: 0;
-<!--   margin-top: 10px; -->
-
 }
 
 .controls {
@@ -172,18 +201,40 @@ hr {
     background-color: #cdcdcd;
 }
 
+.spinner {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+	margin-top: 60%;
+	height: 100px;
+	width: 100px;
+	background: url("spinner.svg") no-repeat;
+}
+
+.search {
+	height: 40px;
+	width: 40px;
+	background: url("search.svg") no-repeat;
+}
+
 </style>
 
 <body>
 
 <div class="container" >
-   <section id="fetch">
+    <section id="fetch" class="fetch">
       <p><input class="input" type="tel" placeholder="Enter Stop Number" id="term" onfocus="this.value='';"/></p>
       <button class="btn btn-success" id="search">FIND BUSES</button>
-	  <div id="heading"></div>
 	</section>
-		<div class="results" id="poster">
-		</div>
+	
+    <section class="heading">
+	  <div id="heading" style=""></div>
+	  <button class="btn btn-success" style="padding:3px; border-radius:50%; width: 55px; height: 55px; float:right; background-color:#fcff00"><span class="search"></span></button>
+	</section>
+	
+	  <div class="results" id="poster"></div>
+	  <div id="preloader" class="spinner"></div>
+		
 </div>
 
 </body>
@@ -192,30 +243,48 @@ hr {
 
 $(document).ready(function(){
 
+	$('body').css('display', 'none');
+	$('body').fadeIn(1000);
+	
+
    $('#term').focus(function(){
       var full = $("#poster").has("img").length ? true : false;
       if(full == false){
          $('#poster').empty();
       }
    });
-
+	
+   $('#search').prop('disabled', true);
+     $('input[type="tel"]').keyup(function() {
+        if($(this).val() != '') {
+           $('#search').prop('disabled', false);
+        }
+     });
+	
    var getPoster = function(){
-
+   
+		$('#fetch').fadeOut('500', function(){
+			});
+		
         var film = $('#term').val();
 
          if(film == ''){
 
-            $('#poster').html("<h2 class='loading'>Please enter something in the field.</h2>");
+            <!-- remove loop once disabled button is working -->
 
          } else {
 
-            $('#heading').html("<h2 class='loading'>Searching for Buses<br/>at stop "+ film +"</h2><hr />");
+            <!-- $('#heading').html("<h2 class='loading'>Searching for Buses<br/>at stop "+ film +"</h2>"); -->
+			
+			 
 
             $.getJSON("https://data.dublinked.ie/cgi-bin/rtpi/realtimebusinformation?stopid="+film+"&format=json?callback?", function(json) {
 
                if (json != "Nothing found."){
-					 
-						$('#heading').html("<h2 class='loading'>Buses due at stop "+ film +"</h2><hr />");
+			   
+						
+						$('#heading').html("<h2 class='loading'>Buses due at stop "+ film +"</h2>");
+						
 						
 						var len = json.results.length;
 						
@@ -231,9 +300,9 @@ $(document).ready(function(){
 								
 								}
 						}
+							$('#preloader').hide();			
                   } else {
-				  console.log(i);
-						$('#poster').html("<h2>Fail</h2>");
+						$('#poster').html("<h2>No results found</h2>");
                      };
                   
              });
@@ -243,7 +312,7 @@ $(document).ready(function(){
         return false;
    }
 
-   $('#search').click(getPoster);
+   $('#search').click(getPoster);  
    $('#term').keyup(function(event){
        if(event.keyCode == 13){
            getPoster();

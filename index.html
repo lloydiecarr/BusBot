@@ -11,7 +11,6 @@
 
 <!-- https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=53.2983930,-6.1791055&sensor=true&key=AIzaSyDCCV_eu-x_RV7NxtpEnYgMS158iA6JDHk&rankby=distance&types=bus_station -->
 <style type="text/css">
-
 html, body {
 	font-family: 'Palanquin', sans-serif;
 	font-size: 100%;
@@ -23,7 +22,6 @@ html, body {
 	overflow: hidden;
 	background-color: #fcff00;
 }
-
 .container {
 	position: absolute;
 	top:0;
@@ -32,9 +30,8 @@ html, body {
 	bottom:0;
 	padding: 15px;
 	overflow: hidden;
-	overflow-y:scroll;
+<!-- 	overflow-y:scroll; -->
 }
-
 .fetch {
     position: fixed;
     left: 0px;
@@ -47,28 +44,24 @@ html, body {
 	background: #fcff00 url('bb-logo.png') no-repeat top center;
 	background-size: 40%;
 }
-
 .heading {
     position: fixed;
     left: 0;
     top: 0;
 	right: 0;
-    z-index: 3;
 	margin: 0;
 	padding: 0;
 	height: 10%;
 	background-color: #000;
 	color: #fcff00;
 }
-
 .focus-text {
 	font-family: 'Economica', sans-serif;
 	font-size: 3em;
 	margin: 30% auto;
 }
-
 .input {
-	margin-top: 50%;
+	margin-top: 55%;
 	width: 100%;
 	font-size: 1.25em;
 	height: 50px;
@@ -77,12 +70,10 @@ html, body {
 	border: 0;
 	border-bottom: 1px solid #4d4d4f;
 }
-
 .finePrint {
 	font-size: 0.5em;
 	padding: 15px 0;
 }
-
 .wrapper {
 	padding: 15px;
 	height: 100%;
@@ -90,7 +81,6 @@ html, body {
 	text-align: center;
 	border: 1px solid #000;
 }
-
 .row {
   padding: 20px 0;
   padding-left: 40px;
@@ -101,12 +91,10 @@ html, body {
   font-family: arial, sans-serif;
   border-bottom: 1px solid #000;
 }
-
 .row span {
 	font-size: 0.6em;
 }
-
-.result {
+<!-- .result {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
@@ -116,14 +104,18 @@ html, body {
   width: 75%;
   float: left;
   font-size:1.25em
-}
+} -->
 
 .result p {
   margin: 0;
 }
 
 .results {
-	
+  margin: 0;
+  margin-top: 10%;
+  padding: 0;
+  font-size:1.25em;
+  overflow-y: scroll;
 }
 
 .due {
@@ -138,28 +130,23 @@ html, body {
   background: #000;
   border-radius: 50%;
 }
-
 .due p {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
   margin: 0;
 }
-
 .controls {
 	text-align: center;
 	padding: 5px;
 }
-
 .pull-right {
 	text-align: right;
 	float: right;
 }
-
 hr {
 	border: 1px #717171 solid;
 }
-
 .btn {
     display: inline-block;
     padding: 12px 12px;
@@ -180,27 +167,22 @@ hr {
     border-radius: 6px;
 	width: 100%;
 }
-
 .btn-default {
     color: #333;
     background-color: transparent;
     border-color: #ccc;
 }
-
 .btn-success {
     color: #fcff00;
     background-color: #000;
     border-color: #000;
 }
-
 .btn-success:active {
     background-color: #98a66e;
 }
-
 .btn-default:active {
     background-color: #cdcdcd;
 }
-
 .spinner {
     position: relative;
     left: 50%;
@@ -210,9 +192,6 @@ hr {
 	width: 100px;
 	background: url("spinner.svg") no-repeat;
 }
-
-
-
 .btn-back {
 	margin: 0;
 	width: 20%; 
@@ -222,8 +201,6 @@ hr {
 	background: #fcff00 url("arrow-bck.svg") no-repeat;
 	background-position: center center; 
 }
-
-
 </style>
 
 <body>
@@ -239,7 +216,8 @@ hr {
 	  <div id="heading" style=""></div>
 	</section>
 	
-	  <div class="results" id="poster"></div>
+	  <div class="results" id="poster">
+	  </div>
 	  <div id="preloader" class="spinner"></div>
 		
 </div>
@@ -247,13 +225,10 @@ hr {
 </body>
 
 <script>
-
 $(document).ready(function(){
-
 	$('body').css('display', 'none');
 	$('body').fadeIn(1000);
 	
-
    $('#term').focus(function(){
       var full = $("#poster").has("img").length ? true : false;
       if(full == false){
@@ -274,19 +249,13 @@ $(document).ready(function(){
 			});
 		
         var film = $('#term').val();
-
          if(film == ''){
-
             <!-- remove loop once disabled button is working -->
-
          } else {
-
             <!-- $('#heading').html("<h2 class='loading'>Searching for Buses<br/>at stop "+ film +"</h2>"); -->
 			
 			 
-
             $.getJSON("https://data.dublinked.ie/cgi-bin/rtpi/realtimebusinformation?stopid="+film+"&format=json?callback?", function(json) {
-
                if (json != "Nothing found."){
 			   
 						
@@ -315,7 +284,6 @@ $(document).ready(function(){
              });
 			 
           }
-
         return false;
    }
    
@@ -327,7 +295,6 @@ $(document).ready(function(){
 		$('#term').val(' ');
 		$('#search').prop('disabled', true);
    }
-
    $('#search').click(getPoster);  
    $('#term').keyup(function(event){
        if(event.keyCode == 13){
@@ -335,14 +302,8 @@ $(document).ready(function(){
        }
    });
    $('#back').click(resetAll); 
-
 });
-
 </script>
 
 </html>
  
-
-
-
-

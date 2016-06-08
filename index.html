@@ -22,16 +22,17 @@ html, body {
 	overflow: hidden;
 	background-color: #fcff00;
 }
+
 .container {
-	position: relative;
+	position: absolute;
 	top: 0;
 	left: 0;
 	right:0;
 	bottom:0;
 	padding: 15px;
 	overflow: hidden;
-<!-- 	overflow-y:scroll; -->
 }
+
 .fetch {
     position: absolute;
     left: 0;
@@ -44,18 +45,28 @@ html, body {
 	background: #fcff00 url('bb-logo.png') no-repeat top center;
 	background-size: 40%;
 }
+
 .heading {
-    position: absolute;
-    left: 0;
-    top: 15px;
-    z-index: 2;
-	right: 0;
-	margin: 0;
+	margin: 0; /* Edit Here -----------------------------------------------------------------------*/
 	padding: 0;
 	height: 12%;
 	background-color: #000;
 	color: #fcff00;
 }
+
+.results {
+	position: absolute; /* Edit Here -----------------------------------------------------------------------*/
+    top: 12%;
+    left:0px;
+    right:0px;
+    bottom:0px;
+    overflow-y:scroll; 
+  margin: 0;
+  padding: 0;
+  font-size:1.25em;
+  overflow-y: scroll;
+}
+
 .focus-text {
 	font-family: 'Economica', sans-serif;
 	font-size: 3em;
@@ -106,16 +117,11 @@ html, body {
   float: left;
   font-size:1.25em
 }
+
 .result p {
   margin: 0;
 }
-.results {
-  margin: 0;
-  margin-top: 12%;
-  padding: 0;
-  font-size:1.25em;
-  overflow-y: scroll;
-}
+
 .due {
   padding: 0;
   float: right;
@@ -209,7 +215,17 @@ hr {
       <button class="btn btn-success" id="search">FIND BUSES</button>
 	</section>
 	
-    <section class="heading">
+
+<div class="heading">
+	  <button class="btn-back" id="back"></button>
+	  <div id="heading" style="margin-left:10px"></div>
+</div>
+<div class="results" id="poster">
+	<!-- dynamic content -->
+</div>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+<div id="preloader" class="spinner"></div>
+
+  <!--  <section class="heading">
 	  <button class="btn-back" id="back"></button>
 	  <div id="heading" style="margin-left:10px"></div>
 	</section>
@@ -226,7 +242,8 @@ hr {
 	  	<p>empty</p>
 	  	<p>empty</p>
 	  </div>
-	  <div id="preloader" class="spinner"></div>
+	  -->
+	  
 		
 </div>
 
@@ -314,3 +331,4 @@ $(document).ready(function(){
 </script>
 
 </html>
+ 

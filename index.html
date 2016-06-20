@@ -258,14 +258,14 @@ $(document).ready(function(){
          if(film == ''){
             <!-- remove loop once disabled button is working -->
          } else {
-            <!-- $('#heading').html("<h2 class='loading'>Searching for Buses<br/>at stop "+ film +"</h2>"); -->
+            $('#heading').html("<h2 style='padding:15px'>LOADING...</h2>");
 			
 			 
             $.getJSON("https://data.dublinked.ie/cgi-bin/rtpi/realtimebusinformation?stopid="+film+"&format=json?callback?", function(json) {
                if (json != "Nothing found."){
 			   
 						
-						$('#heading').html("<h2 style='padding:15px'>STOP "+ film +"</h2>");
+						$('#heading').html("<h2 style='padding:15px'>STOP NO. "+ film +"</h2>");
 						
 						
 						var len = json.results.length;

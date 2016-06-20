@@ -57,7 +57,7 @@ html, body {
 
 .results {
 	position: absolute; /* Edit Here -----------------------------------------------------------------------*/
-    top: 15%;
+    top: 22%;
     left:0px;
     right:0px;
     bottom:0px;
@@ -220,7 +220,7 @@ hr {
 
 <div class="heading">
 	  <button class="btn-back" id="back"></button>
-	  <div id="heading" style="padding:15px"></div>
+	  <div id="heading" style="margin-left:24%"></div>
 </div>
 <div class="results" id="poster">
 	<!-- dynamic content -->
@@ -259,14 +259,14 @@ $(document).ready(function(){
          if(film == ''){
             <!-- remove loop once disabled button is working -->
          } else {
-            $('#heading').html("<h2 style='padding:15px'>LOADING...</h2>");
+            $('#heading').html("<h2>LOADING...</h2>");
 			
 			 
             $.getJSON("https://data.dublinked.ie/cgi-bin/rtpi/realtimebusinformation?stopid="+film+"&format=json?callback?", function(json) {
                if (json != "Nothing found."){
 			   
 						
-						$('#heading').html("<h2 style='padding:15px'>STOP NO. "+ film +"</h2>");
+						$('#heading').html("<h2>STOP NO. "+ film +"</h2>");
 						
 						
 						var len = json.results.length;

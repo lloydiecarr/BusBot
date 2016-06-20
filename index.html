@@ -218,33 +218,13 @@ hr {
 
 <div class="heading">
 	  <button class="btn-back" id="back"></button>
-	  <div id="heading" style="padding:15px"></div>
+	  <div id="heading"></div>
 </div>
 <div class="results" id="poster">
 	<!-- dynamic content -->
-</div>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+</div>
 <div id="preloader" class="spinner"></div>
 
-  <!--  <section class="heading">
-	  <button class="btn-back" id="back"></button>
-	  <div id="heading" style="margin-left:10px"></div>
-	</section>
-	
-	  <div class="results" id="poster">
-	  	<p>empty</p>
-	  	<p>empty</p>
-	  	<p>empty</p>
-	  	<p>empty</p>
-	  	<p>empty</p>
-	  	<p>empty</p>
-	  	<p>empty</p>
-	  	<p>empty</p>
-	  	<p>empty</p>
-	  	<p>empty</p>
-	  </div>
-	  -->
-	  
-		
 </div>
 
 </body>
@@ -284,7 +264,7 @@ $(document).ready(function(){
                if (json != "Nothing found."){
 			   
 						
-						$('#heading').html("<h2 class='loading'>STOP "+ film +"</h2>");
+						$('#heading').html("<h2 style="padding:15px">STOP "+ film +"</h2>");
 						
 						
 						var len = json.results.length;

@@ -47,25 +47,31 @@ html, body {
 }
 
 .heading {
-	margin: 0; /* Edit Here -----------------------------------------------------------------------*/
-	padding: 10% 0;
-	height: 15%;
+	margin: 0;
+	padding: 0;
+	height: 12%;
+	display: table-cell;
+	vertical-align: middle;
 	background-color: #000;
 	color: #fcff00;
 }
 
+.spacer {
+	height: 3%;
+	background-color: #000;
+}
+
 .results {
-	position: absolute; /* Edit Here -----------------------------------------------------------------------*/
-    top: 15%;
-    left:0px;
-    right:0px;
-    bottom:0px;
-    overflow-y:scroll;
-  margin: 0;
-  margin-top: 0;
-  padding: 15px;
-  font-size:1.25em;
-  overflow-y: scroll;
+	 position: absolute; 
+	 top: 15%;
+	 left:0px;
+	 right:0px;
+	 bottom:0px;
+	 overflow-y:scroll;
+	 margin: 0;
+	 padding: 15px;
+	 font-size:1.25em;
+	 overflow-y: scroll;
 }
 
 .focus-text {
@@ -216,7 +222,7 @@ hr {
       <button class="btn btn-success" id="search">FIND BUSES</button>
 	</section>
 	
-<!--<div class="spacer"></div>-->
+<div class="spacer"></div>
 <div class="heading">
 	  <button class="btn-back" id="back"></button>
 	  <div id="heading" style="margin-left:24%"></div>

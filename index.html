@@ -67,6 +67,10 @@ html, body {
 	color: #fcff00;
 }
 
+.heading p {
+	margin-top: -30px;
+}
+
 .results {
 	 position: absolute; 
 	 top: 15%;
@@ -109,7 +113,7 @@ html, body {
   padding: 20px 0;
   padding-left: 40px;
   margin: 0;
-  margin-top: 25px;
+  margin-top: 15px;
   height: 44px;
   background: url("bus.png") no-repeat center left;
   line-height: 1em;
@@ -272,21 +276,22 @@ $(document).ready(function(){
             $('#heading').html("<h2>LOADING...</h2>");
 			
 			$.getJSON("https://data.dublinked.ie/cgi-bin/rtpi/busstopinformation?stopid="+film+"&format=json?callback?", function(json) {
-               if (json != "Nothing found."){
+               if (json != "No Results."){
 			   
 					$('#heading').html("<h2>STOP NO. "+ film +"</h2><p>" + json.results[0].fullname + "</p>");
 					
+			  /* } else {
+			   
+					$('#heading').html("<h2>Number not in use</h2>"); */
+			   
 			   }
 			});
 			
 			 
             $.getJSON("https://data.dublinked.ie/cgi-bin/rtpi/realtimebusinformation?stopid="+film+"&format=json?callback?", function(json) {
-               if (json != "Nothing found."){
-			   
-						
-						
-												
-						
+
+               if (json.errorcode = 0){
+			   				
 						var len = json.results.length;
 						
 						for (i=0; i<len; i++){
@@ -301,9 +306,14 @@ $(document).ready(function(){
 								
 								}
 						}
-							$('#preloader').hide();			
-                  } else {
-						$('#poster').html("<h2>No results found</h2>");
+							$('#preloader').hide();	
+							
+                  } else if (json.errorcode = 1){
+				  
+						$('#heading').html("<h2>Sorry</h2>");
+						$('#poster').html("<h2>We can't find that stop</h2><p>Select the back button and try another number</p>");
+						$('#preloader').hide();	
+						
                      };
                   
              });

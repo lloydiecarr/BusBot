@@ -308,7 +308,7 @@ $(document).ready(function(){
 						}
 							$('#preloader').hide();	
 							
-                  } else if (json.errorcode != 0){
+                  } else { <!--if (json.errorcode != 0)-->
 				  
 						$('#heading').html("<h2>Sorry</h2>");
 						$('#poster').html("<h2>We can't find that stop</h2><p>Select the back button and try another number</p>");

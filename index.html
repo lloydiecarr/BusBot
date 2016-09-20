@@ -225,7 +225,8 @@ hr {
 
 <body>
 
-<div class="container" >
+<div class="container">
+<a href="#" onclick="showConfirm(); return false;" id="" class="pull-right"><span class="glyphicon glyphicon-remove"></span></span></a>
     <section id="fetch" class="fetch">
       <p><input class="input" type="tel" placeholder="Enter Stop Number" id="term" onfocus="this.value='';"/></p>
       <button class="btn btn-success" id="search">FIND BUSES</button>
@@ -337,6 +338,23 @@ $(document).ready(function(){
    });
    $('#back').click(resetAll); 
 });
+
+ function showConfirm() {
+        navigator.notification.confirm(
+            'Do you really want to exit?',  // message
+            exitFromApp,              // callback to invoke with index of button pressed
+            'Exit',            // title
+            'Cancel,OK'         // buttonLabels
+        );
+    }
+
+    
+    function exitFromApp(buttonIndex) {
+      if (buttonIndex==2){
+       navigator.app.exitApp();
+    	}
+
+
 </script>
 
 </html>

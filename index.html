@@ -290,7 +290,7 @@ $(document).ready(function(){
 			 
             $.getJSON("https://data.dublinked.ie/cgi-bin/rtpi/realtimebusinformation?stopid="+film+"&format=json?callback?", function(json) {
 
-               if (json != "No Results."){<!--json.errorcode = 0-->		
+               if (json.errorcode == 0){<!--json.errorcode == 0-->		
 						var len = json.results.length;
 						
 						for (i=0; i<len; i++){
@@ -307,8 +307,8 @@ $(document).ready(function(){
 						}
 							$('#preloader').hide();	
 							
-                  } else { <!--if (json.errorcode != 0) -->
-				  console.log(json.errorcode);	
+                  } else {
+				 
 						$('#heading').html("<h2>Sorry</h2>");
 						$('#poster').html("<h2>We can't find that stop</h2><p>Select the back button and try another number</p>");
 						$('#preloader').hide();	

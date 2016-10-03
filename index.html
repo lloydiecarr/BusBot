@@ -54,7 +54,7 @@ html, body {
 	color: #fff;
 }
 
-.heading {
+.header {
 	position: absolute; 
 	top: 3%;
 	left:0px;
@@ -66,11 +66,12 @@ html, body {
 	color: #fcff00;
 }
 
-.heading p {
-	margin-top: -30px;
+.returned {
+	margin-left:24%;
+	padding:3px;
 }
-
-.results {
+	
+.list {
 	 position: absolute; 
 	 top: 15%;
 	 left:0px;
@@ -87,6 +88,7 @@ html, body {
 	font-size: 3em;
 	margin: 30% auto;
 }
+	
 .input {
 	margin-top: 65%;
 	width: 100%;
@@ -97,10 +99,12 @@ html, body {
 	border: 0;
 	border-bottom: 1px solid #4d4d4f;
 }
+	
 .finePrint {
 	font-size: 0.5em;
 	padding: 15px 0;
 }
+	
 .wrapper {
 	padding: 15px;
 	height: 100%;
@@ -108,6 +112,7 @@ html, body {
 	text-align: center;
 	border: 1px solid #000;
 }
+	
 .row {
   padding: 20px 0;
   padding-left: 40px;
@@ -119,9 +124,11 @@ html, body {
   font-family: arial, sans-serif;
   border-bottom: 1px solid #000;
 }
+	
 .row span {
 	font-size: 0.6em;
 }
+	
 .result {
   position: relative;
   top: 50%;
@@ -149,23 +156,24 @@ html, body {
   background: #000;
   border-radius: 50%;
 }
+	
 .due p {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
   margin: 0;
 }
+	
 .controls {
 	text-align: center;
 	padding: 5px;
 }
+	
 .pull-right {
 	text-align: right;
 	float: right;
 }
-hr {
-	border: 1px #717171 solid;
-}
+
 .btn {
     display: inline-block;
     padding: 12px 12px;
@@ -184,13 +192,9 @@ hr {
     user-select: none;
     border: 1px solid transparent;
     border-radius: 6px;
-	width: 100%;
+    width: 100%;
 }
-.btn-default {
-    color: #333;
-    background-color: transparent;
-    border-color: #ccc;
-}
+
 .btn-success {
     color: #fcff00;
     background-color: #000;
@@ -199,18 +203,8 @@ hr {
 .btn-success:active {
     background-color: #98a66e;
 }
-.btn-default:active {
-    background-color: #cdcdcd;
-}
-.spinner {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-	margin-top: 50%;
-	height: 100px;
-	width: 100px;
-	background: url("spinner.svg") no-repeat;
-}
+
+	
 .btn-back {
 	margin: 0;
 	width: 20%; 
@@ -220,6 +214,17 @@ hr {
 	background: #fcff00 url("arrow-bck.svg") no-repeat;
 	background-position: center center; 
 }
+	
+.spinner {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+	margin-top: 50%;
+	height: 100px;
+	width: 100px;
+	background: url("spinner.svg") no-repeat;
+}
+
 </style>
 
 <body>
@@ -231,15 +236,16 @@ hr {
 	</section>
 	
 <div class="spacer"></div>
-<div class="heading">
+<div class="header">
 	  <button class="btn-back" id="back"></button>
-	  <div id="heading" style="margin-left:24%"></div>
+	  <div id="heading" class="returned"></div>
 </div>
-<div class="results" id="poster">
+<div class="list" id="poster">
 	<!-- dynamic content -->
+	<p id="error-message"></p>
 </div>
-<div id="preloader" class="spinner"></div>
 
+<div id="preloader" class="spinner"></div>
 </div>
 
 </body>
@@ -308,10 +314,11 @@ $(document).ready(function(){
 							
                   } else {
 				 
-						$('#heading').html("<h2>Sorry</h2>");
-						$('#poster').html("<h2>We can't find that stop</h2><p>Select the back button and try another number</p>");
-						$('#preloader').hide();	
-						
+			$('#heading').html("<h2>Sorry</h2>");
+			$('#poster').html("<h2>We can't find that stop</h2><p>Select the back button and try another number</p>");
+			$('#error-message').html(json.results[0].errormessage);
+			$('#preloader').hide();
+		
                      };
                   
              });

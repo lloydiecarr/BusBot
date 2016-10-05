@@ -242,7 +242,6 @@ html, body {
 </div>
 <div class="list" id="poster">
 	<!-- dynamic content -->
-	<p id="error-message"></p>
 </div>
 
 <div id="preloader" class="spinner"></div>
@@ -316,7 +315,7 @@ $(document).ready(function(){
 				 
 			$('#heading').html("<h2>Sorry</h2>");
 			$('#poster').html("<h2>We can't find that stop</h2><p>Select the back button and try another number</p>");
-			$('#error-message').html("Test Error");
+			$('#poster').append("<p>" + json.results[0].errormessage + "</p>");
 			$('#preloader').hide();
 		
                      };

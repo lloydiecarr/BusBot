@@ -316,7 +316,7 @@ $(document).ready(function(){
 				 
 			$('#heading').html("<h2>Sorry</h2>");
 			$('#poster').html("<h2>We can't find that stop</h2><p>Select the back button and try another number</p>");
-			$('#error-message').html(json.results[0].errormessage);
+			$('#error-message').html("Test Error" + json.results[0].errormessage);
 			$('#preloader').hide();
 		
                      };

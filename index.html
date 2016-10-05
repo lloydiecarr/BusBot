@@ -285,9 +285,10 @@ $(document).ready(function(){
 				$('#heading').html("<h2>STOP NO. "+ film +"</h2><p>" + json.results[0].fullname + "</p>");
 					
 			  } else {
-	
-				$('#heading').html("<h2>Sorry</h2>");
-				$('#poster').html("<h2>" + json.results[0].errormessage + "</h2><p>Select the back arrow button</p>");
+				$('#poster').html("<p>First line</p>");
+				$('#heading').html("<h2>Sorry</h2>" + json.results[0].errormessage);
+				<!--$('#poster').html("<h2>" + json.results[0].errormessage + "</h2><p>Select the back arrow button</p>");-->
+				  $('#poster').html("<p>Second line</p>");
 			   
 			   }
 			});

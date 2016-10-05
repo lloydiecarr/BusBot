@@ -312,11 +312,10 @@ $(document).ready(function(){
 							$('#preloader').hide();	
 							
                   } else {
-				 
+			  
+			$('#preloader').hide();	 
 			$('#heading').html("<h2>Sorry</h2>");
-			$('#poster').html("<h2>We can't find that stop</h2><p>Select the back button and try another number</p>");
-			$('#poster').append("<p>" + json.results[0].errormessage + "</p>");
-			$('#preloader').hide();
+			$('#poster').append("<h2>" + json.results[0].errormessage + "</h3><p>Select the back arrow button</p>");
 		
                      };
                   

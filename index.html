@@ -279,15 +279,15 @@ $(document).ready(function(){
          } else {
             $('#heading').html("<h2>LOADING...</h2>");
 			
-			$.getJSON("https://data.dublinked.ie/cgi-bin/rtpi/busstopinformation?stopid="+film+"&format=json?callback?", function(json) {
-               if (json != "No Results."){
+	    $.getJSON("https://data.dublinked.ie/cgi-bin/rtpi/busstopinformation?stopid="+film+"&format=json?callback?", function(json) {
+               if (json.errorcode == 0){
 			   
 				$('#heading').html("<h2>STOP NO. "+ film +"</h2><p>" + json.results[0].fullname + "</p>");
 					
 			  } else {
 	
 				$('#heading').html("<h2>Sorry</h2>");
-				$('#poster').append("<h2>" + json.results[0].errormessage + "</h3><p>Select the back arrow button</p>");
+				$('#poster').html("<h2>" + json.results[0].errormessage + "</h3><p>Select the back arrow button</p>");
 			   
 			   }
 			});
@@ -295,7 +295,7 @@ $(document).ready(function(){
 			 
             $.getJSON("https://data.dublinked.ie/cgi-bin/rtpi/realtimebusinformation?stopid="+film+"&format=json?callback?", function(json) {
 
-               if (json.errorcode == 0){<!--json.errorcode == 0-->		
+               if (json.errorcode == 0){	
 						var len = json.results.length;
 						
 						for (i=0; i<len; i++){

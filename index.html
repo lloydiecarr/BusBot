@@ -282,11 +282,12 @@ $(document).ready(function(){
 			$.getJSON("https://data.dublinked.ie/cgi-bin/rtpi/busstopinformation?stopid="+film+"&format=json?callback?", function(json) {
                if (json != "No Results."){
 			   
-					$('#heading').html("<h2>STOP NO. "+ film +"</h2><p>" + json.results[0].fullname + "</p>");
+				$('#heading').html("<h2>STOP NO. "+ film +"</h2><p>" + json.results[0].fullname + "</p>");
 					
 			  } else {
-			   
-					$('#heading').html("<h2>Number not in use</h2>"); 
+	
+				$('#heading').html("<h2>Sorry</h2>");
+				$('#poster').append("<h2>" + json.results[0].errormessage + "</h3><p>Select the back arrow button</p>");
 			   
 			   }
 			});
@@ -314,9 +315,7 @@ $(document).ready(function(){
                   } else {
 			  
 			$('#preloader').hide();	 
-			$('#heading').html("<h2>Sorry</h2>");
-			$('#poster').append("<h2>" + json.results[0].errormessage + "</h3><p>Select the back arrow button</p>");
-		
+
                      };
                   
              });

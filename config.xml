@@ -7,14 +7,14 @@
         id        = "com.lloydiecarr.ProductReactionCard"
         version   = "1.0.0">
 
-    <name>Bus Bot</name>
+    <name>Bus Button Dublin</name>
 
     <description>
-        Product Reaction Card MVP
+        Dublin Bus search tool
     </description>
 
     <author href="http://phonegap.com" email="support@phonegap.com">
-		Lloydie
+		Lloyd Carr
     </author>
 
     <!--
@@ -30,8 +30,8 @@
     <preference name="fullscreen"                 value="true" />           <!-- all: hides the status bar at the top of the screen -->
 	<!-- <preference name="SplashScreen" value="screen" /> -->
 	<preference name="BackgroundColor" value="0xffebf2d6"/>
-	<preference name="SplashScreenDelay" value="3000" />
-	<preference name="splash-screen-duration" value="3000" />
+	<preference name="SplashScreenDelay" value="2000" />
+	<preference name="splash-screen-duration" value="2000" />
 
     <!--
         Define a specific version of PhoneGap to build into your app.

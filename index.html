@@ -173,6 +173,13 @@ html, body {
 	text-align: right;
 	float: right;
 }
+	
+.version {
+	position:absolute;
+	bottom:0;
+	margin: 0 auto;
+	size:9px;
+}
 
 .btn {
     display: inline-block;
@@ -231,8 +238,9 @@ html, body {
 
 <div class="container">
     	<section id="fetch" class="fetch">
-		 <p><input class="input" type="tel" placeholder="Enter Stop Number" id="term" onfocus="this.value='';"/></p>
+		 <p><input class="input" type="tel" placeholder="Touch to enter stop number" id="term" onfocus="this.value='';"/></p>
       		<button class="btn btn-success" id="search">FIND BUSES</button>
+		<div class="version">bus button v1.0</div>
 	</section>
 	
 <div class="spacer"></div>

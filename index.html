@@ -67,8 +67,20 @@ html, body {
 }
 
 .returned {
-	margin-left:24%;
+	/*margin-left:24%;*/
+	padding: 5px;
 	line-height: 0.65em;
+}
+
+.footer {
+	position: absolute; 
+	bottom: 0%;
+	left:0px;
+	right:0px;
+	margin: 0;
+	padding: 0;
+	height: 15%;
+	text-align: center;
 }
 	
 .list {
@@ -214,12 +226,15 @@ html, body {
 	
 .btn-back {
 	margin: 0;
-	width: 20%; 
-	height: 100%; 
+	padding: 2px;/*added*/
+	width: 50%; /*added*/
+	height: 50%; /*added*/
 	float:left; 
 	border: transparent;
 	background: #fcff00 url("arrow-bck.svg") no-repeat;
 	background-position: center center; 
+	border: 1px #0C3966 solid; /*added*/
+	border-radius: 100%; /*added*/
 }
 	
 .spinner {
@@ -240,12 +255,11 @@ html, body {
     	<section id="fetch" class="fetch">
 		 <p><input class="input" type="tel" placeholder="Touch to enter stop number" id="term" onfocus="this.value='';"/></p>
       		<button class="btn btn-success" id="search">FIND BUSES</button>
-		<div class="version">bus button v1.0</div>
+		<div class="version">bus button v2.0</div>
 	</section>
 	
 <div class="spacer"></div>
 <div class="header">
-	  <button class="btn-back" id="back"></button>
 	  <div id="heading" class="returned"></div>
 </div>
 <div class="list" id="poster">
@@ -253,6 +267,10 @@ html, body {
 </div>
 
 <div id="preloader" class="spinner"></div>
+	<!-- added from header -->
+<div class="footer">
+	<button class="btn-back" id="back"></button>
+</div>
 </div>
 
 </body>

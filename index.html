@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <title>Bus Bot</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
-<script src="jquery-2.2.3.js"></script>
+<!--<script src="jquery-2.2.3.js"></script>-->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Economica:700' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Palanquin:500' rel='stylesheet' type='text/css'>
 
@@ -200,7 +201,7 @@ html, body {
     display: inline-block;
     padding: 13px 13px;
 	font-family: inherit;
-    font-size: 14px;
+    font-size: 1.2em;
     font-weight: 800;
     line-height: 1.42857143;
     text-align: center;
@@ -230,13 +231,11 @@ html, body {
 	
 .btn-back {
 	margin: 0;
-    padding: 2px;
-    width: 80px;
-    height: 80px;
+	width: 50%;
     background: #fcff00 url(arrow-bck.svg) no-repeat;
-    background-position: center center;
+    background-position: left center;
     border: 2px #0C3966 solid;
-    border-radius: 100%;
+    border-radius: 27px;
 	opacity: 0.85;
 }
 .btn-back:active {
@@ -260,7 +259,7 @@ html, body {
 
 <div class="container">
     	<section id="fetch" class="fetch">
-		 <p><input class="input" type="tel" placeholder="Enter bus stop number" id="term" onfocus="this.value='';"/></p>
+		 <p><input class="input" type="tel" placeholder="Enter bus stop number" id="term" onfocus="this.value='';" autofocus="true" /></p>
       		<button class="btn btn-success" id="search">FIND BUSES</button>
 		<div class="version">bus button v2.0</div>
 	</section>
@@ -276,7 +275,7 @@ html, body {
 <div id="preloader" class="spinner"></div>
 	<!-- added from header -->
 <div class="footer">
-	<button class="btn-back" id="back"></button>
+	<button class="btn btn-back" id="back">&nbsp;&nbsp;&nbsp; TRY AGAIN</button>
 </div>
 </div>
 
@@ -302,6 +301,12 @@ $(document).ready(function(){
      });
 	
    var getPoster = function(){
+   	var timer = setTimeout(timeout, 5000);
+   	function timeout(){
+   		$('#preloader').hide();
+		$('#heading').html("<h2></h2>");
+		$('#poster').html("<h2>I'm sorry!</h2><p>There must be some technical problem. Click the arrow button to try again</p>");
+   	};
    
 		$('#fetch').fadeOut('500', function(){
 			});
@@ -312,22 +317,18 @@ $(document).ready(function(){
          } else {
             $('#heading').html("<h2>LOADING...</h2>");
 			
-	    $.getJSON("https://data.dublinked.ie/cgi-bin/rtpi/realtimebusinformation?stopid="+film+"&format=json?callback?", function(json) {
-               if (json.errorcode == 0){
-			   
-				$('#heading').html("<h2>STOP NO. "+ film +"</h2><p>" + json.results[0].fullname + "</p>");
-					
-			  } else {
-				  $('#heading').html("<h2>Can't find results for stop" + film +"</h2>"); 
-			   }
-			});
-			
-			 
-            $.getJSON("https://data.dublinked.ie/cgi-bin/rtpi/realtimebusinformation?stopid="+film+"&format=json?callback?", function(json) {
+
+			/*Get API 
+            $.getJSON("https://data.dublinked.ie/cgi-bin/rtpi/realtimebusinformation?stopid="+film+"&format=json?callback?", function(json) {*/
+
+            	/*Get local*/
+            	$.getJSON("data-184.json", function(json) {
 
                if (json.errorcode == 0){	
 						var len = json.results.length;
-						
+						clearTimeout(timer);
+						$('#preloader').hide();	
+						clearTimeout (timer);
 						for (i=0; i<len; i++){
 							
 								if (json.results[i].duetime != 'Due'){
@@ -335,18 +336,19 @@ $(document).ready(function(){
 									$('#poster').append("<div class='row'><div class='result'><p><strong>No. " + json.results[i].route + "</strong><br /><span>To " + json.results[i].destination + "</span></p></div>" + "<div class='due'><p>" + json.results[i].duetime + "<br /><span id='minutes'>min</span></p></div></div>");
 									
 										} else {
-									
+
+									$('#heading').html("<h2>STOP NO. "+ film +"</h2><p>" + json.results[0].fullname + "</p>");
 									$('#poster').append("<div class='row'><div class='result'><p><strong>No. " + json.results[i].route + "</strong><br /><span>To " + json.results[i].destination + "</span></p></div>" + "<div class='due'><p>" + json.results[i].duetime + "</p></div></div>");
 								
 								}
 						}
-							$('#preloader').hide();	
+							
 							
                   } else {
 			  
 			$('#preloader').hide();
-			$('#heading').html("<h2>Sorry</h2>");
-			$('#poster').html("<h2>"+ json.errormessage +"</h2><p>Click the arrow button to go back</p>");
+			$('#heading').html("<h2>Unknown stop</h2>");
+			$('#poster').html("<h2>"+ json.errormessage +"</h2><p>Click the arrow button to try again</p>");
 
                      };
                   
@@ -376,4 +378,5 @@ $(document).ready(function(){
 </script>
 
 </html>
+
  
